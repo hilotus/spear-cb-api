@@ -1,4 +1,4 @@
-# Spear::Cb::Api
+# Spear Cb Api
 
 TODO: Write a gem description
 
