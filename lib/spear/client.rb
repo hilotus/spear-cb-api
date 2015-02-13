@@ -8,7 +8,9 @@ module Spear
     attr_reader :options, :request
 
     def initialize(options={})
-      raise 'DeveloperKey is missing!' if options[:dev_key].nil?
+      raise Spear::InvalidClientOptionsException.new('DeveloperKey is missing!') if options[:dev_key].nil?
+      raise Spear::InvalidClientOptionsException.new('ProjectName is missing!') if options[:project].nil?
+
       @options = options
       @request = generate_request
     end
@@ -41,6 +43,10 @@ module Spear
     # need save api info
     def save_api?
       @options[:use_saving_api] || false
+    end
+
+    def project
+      @options[:project]
     end
 
     private

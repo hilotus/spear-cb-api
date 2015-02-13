@@ -7,6 +7,9 @@ module Spear
   autoload :Client, 'spear/client'
   autoload :Request, 'spear/request'
 
+  # exception
+  autoload :InvalidClientOptionsException, 'spear/exceptions'
+
   module Resource
     autoload :User, 'spear/resource/user'
     autoload :Resume, 'spear/resource/resume'

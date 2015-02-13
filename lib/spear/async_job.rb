@@ -4,19 +4,20 @@ module Spear
   class AsyncJob
     include SuckerPunch::Job
 
-    def perform(request, response, method, url, duration)
+    def perform(options={})
+      # TODO: save the error to log
       HTTParty.post(
         %q{http://ciws.hilotus.com/api/v1/api-info},
         :body => {
-          :project => 'ApplyRegister',
-          :url => url,
-          :method => method,
-          :request => request,
-          :response => response,
-          :duration => duration
+          :project => options[:project],
+          :url => options[:url],
+          :method => options[:method],
+          :request => options[:request],
+          :response => options[:response],
+          :duration => options[:duration]
         }.to_json,
         :options => {:headers => {'Content-Type' => 'application/json'}}
-      ) rescue
+      ) rescue options
     end
   end
 end

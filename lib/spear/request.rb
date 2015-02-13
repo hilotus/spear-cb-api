@@ -34,6 +34,15 @@ module Spear
       end
 
       if @client.save_api?
+        options = {
+          project: @client.project
+        }
+        options[:project],
+          :url => options[:url],
+          :method => options[:method],
+          :request => options[:request],
+          :response => options[:response],
+          :duration => options[:duration]
         @async_job.async.perform(req, resp.to_h, http_method.to_s, url, ((Time.now - start_time).to_f * 1000.0).to_i)
       end
 
