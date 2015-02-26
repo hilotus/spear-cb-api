@@ -1,6 +1,6 @@
 describe Spear do
   before :each do
-    Spear.config({dev_key: 'xxx', :project => 'ProjectName'})
+    Spear.config({dev_key: 'xxx', :project => 'ProjectName', :using_model => true})
   end
 
   it "check user existing" do
@@ -15,7 +15,7 @@ describe Spear do
 
   it 'search job' do
     s = Spear.search_job({:TalentNetworkDID => 'TN818G76D6YWYNBXHB3Z', :SiteEntity => 'TalentNetworkJob', :CountryCode => 'IN'})
-    puts s
+    puts s.jobs.last.posted_date
   end
 
   it "retrieve job" do
