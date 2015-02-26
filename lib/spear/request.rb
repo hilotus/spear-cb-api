@@ -1,75 +1,87 @@
+require 'active_model'
+require 'active_model/callbacks'
+
 module Spear
   class Request
-    attr_reader :client, :resource
+    extend ActiveModel::Callbacks
+    define_model_callbacks :execute, :only => [:before, :after]
 
-    def initialize(options={})
-      @client = options[:client]
-      @resource = resource
-      @async_job = Spear::AsyncJob.new
-    end
+    attr_reader :resource
 
-    # TODO: custom reqeust headers support.
-    # payload: {:body => {}, :query => {}}
-    def execute(http_method, endpoint, payload={})
-      start_time = Time.now;
-      url = @resource + endpoint;
-
-      case http_method
-      when :get
-        req = splice(payload)
-        resp = HTTParty.get(url, req)
-      when :post
-        req = {:body => to_xml(payload)}
-        resp = HTTParty.post(url, req)
-      when :upload_file
-        req = splice(payload)
-        req[:body] = "file base64 content..."
-        resp = HTTParty.post(url, splice(payload))
-      when :parse_file
-        req = {:body => payload}
-        req[:body][:FileBytes] = nil
-        resp = HTTParty.post(url, :body => to_xml(payload))
-      else
-        resp = {"Errors" => {"Error" => "%q{#{http_method} http method is not support.}"}}
-      end
-
-      if @client.save_api?
-        options = {
-          project: @client.project,
-          request: req,
-          response: resp.to_h,
-          method: http_method.to_s,
-          url: url,
-          duration: ((Time.now - start_time).to_f * 1000.0).to_i
-        }
-        @async_job.async.perform(options)
-      end
-
-      resp
+    # params: {:body => {}, :query => {}, :api_options => {}}
+    #   exp: api_options: {:path => "/v1"}
+    def execute(method, endpoint, params={})
+      run_callbacks(:execute) {
+        response = exec(method, endpoint, params)
+        begin
+          self.api_response = response
+        rescue NoMethodError => e  # if we don't use save api info plugin, it'll throw NoMethodError.
+          response
+        end
+      }
     end
 
     private
-      def resource
+      def exec(method, endpoint, params={})
+        query = params[:query] || {}
+        body = params[:body] || {}
+        api_options = params[:api_options] || {}
+        url = generate_resource(api_options) + endpoint
+
+        begin
+          case method
+          when :get
+            HTTParty.get(url, query: splice_query(query))
+          when :post
+            HTTParty.post(url, body: splice_body(body), query: query)
+          when :upload_file
+            HTTParty.post(url, body: body, query: splice_query(query))
+          when :parse_file
+            HTTParty.post(url, body: splice_body(body))
+          when :apply
+            HTTParty.post(url, body: to_xml(body), query: splice_query(query))
+          else
+            raise Spear::ParametersNotValid.new("#{method} is not support.")
+          end
+        rescue SocketError => e  # if the network is disconnected, it'll throw SocketError.
+          raise Spear::NetworkError.new(e.message)
+        end
+      end
+
+      # generate cb api host and version
+      def generate_resource(api_options)
         uri = URI("")
-        uri.scheme = @client.ssh? ? 'https' : 'http'
-        uri.host = @client.hostname
-        uri.port = @client.port
-        uri.path = "/#{@client.version}"
+        uri.scheme = Spear.ssh? ? 'https' : 'http'
+        uri.host = Spear.hostname
+        uri.port = Spear.port
+
+        # Some api endpoint have no version and fixed pattern.
+        if api_options[:path].nil?
+          uri.path = "/#{Spear.version}"
+        else
+          uri.path = "/#{api_options[:path]}"
+        end
+
         uri.to_s
       end
 
-      # parse payload to xml format
-      def to_xml(payload)
-        payload[:DeveloperKey] = @client.dev_key
-        payload[:Test] = @client.test?
-        payload = payload.to_xml(root: 'Request', skip_instruct: true, skip_types: true)
+      # splice request body
+      def splice_body(body, xml=true)
+        body[:DeveloperKey] = Spear.dev_key
+        body[:Test] = Spear.test?
+        xml ? to_xml(body) : body
       end
 
-      # splice payload {:body => {}, :query => {}} with DeveloperKey and Test
-      def splice(payload)
-        payload[:query][:DeveloperKey] = @client.dev_key
-        payload[:query][:Test] = @client.test?
-        payload
+      # parse body from hash to xml format
+      def to_xml(body)
+        body.to_xml(root: 'Request', skip_instruct: true, skip_types: true)
+      end
+
+      # splice query(url params) {:query => {}} with DeveloperKey and Test
+      def splice_query(query)
+        query[:DeveloperKey] = Spear.dev_key
+        query[:Test] = Spear.test?
+        query
       end
 
   end
