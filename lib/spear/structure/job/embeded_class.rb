@@ -6,7 +6,7 @@ module Spear
         ##################################################################
         # Resume embeded class
         ##################################################################
-        class JobSearchResult
+        class CbJob
           attr_accessor :did, :tn_did, :job_title, :state, :city, :posted_date, :employment_type
 
           def initialize(tn_did, job={})
@@ -23,9 +23,9 @@ module Spear
         def generate_jobs(jobs, tn_did)
           if !jobs.nil?
             if jobs.kind_of?(Array)
-              jobs.map {|job| JobSearchResult.new(tn_did, job)}
+              jobs.map {|job| CbJob.new(tn_did, job)}
             else  # Hash
-              [JobSearchResult.new(tn_did, jobs)]
+              [CbJob.new(tn_did, jobs)]
             end
           else
             []

@@ -20,7 +20,7 @@ describe Spear do
 
   it "retrieve job" do
     s = Spear.retrieve_job('J3J4BP6MGVH2DJZ6MJH', 'IN')
-    puts s
+    puts s.job_description
   end
 
   it "create application" do

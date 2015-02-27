@@ -41,6 +41,7 @@ module Spear
     module Job
       autoload :EmbededClass, 'spear/structure/job/embeded_class'
       autoload :Search, 'spear/structure/job/search'
+      autoload :Retrieve, 'spear/structure/job/retrieve'
     end
 
     module TalentNetwork
