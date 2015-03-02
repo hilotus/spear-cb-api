@@ -15,7 +15,7 @@ describe Spear do
 
   it 'search job' do
     s = Spear.search_job({:TalentNetworkDID => 'TN818G76D6YWYNBXHB3Z', :SiteEntity => 'TalentNetworkJob', :CountryCode => 'IN'})
-    puts s.jobs.last.posted_date
+    puts s.jobs.last.nil? ? 'nil' : s.jobs.last.posted_date
   end
 
   it "retrieve job" do

@@ -8,9 +8,12 @@ module Spear
         def initialize(response)
           super(response)
           @job_id = response.request.options[:query][:DID]
-          @job_description = @root["Job"]["JobDescription"]
-          @job_requirements = @root["Job"]["JobRequirements"]
-          @job_title = @root["Job"]["JobTitle"]
+
+          unless @root["Job"].nil?
+            @job_description = @root["Job"]["JobDescription"]
+            @job_requirements = @root["Job"]["JobRequirements"]
+            @job_title = @root["Job"]["JobTitle"]
+          end
         end
       end
     end
