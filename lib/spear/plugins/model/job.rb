@@ -2,6 +2,8 @@ module Spear
   module Plugins
     module Model
       module Job
+        include Resource::Job
+
         def search_job(params={})
           response = super(params)
           Structure::Job::Search.new(response)

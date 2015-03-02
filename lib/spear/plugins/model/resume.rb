@@ -2,6 +2,8 @@ module Spear
   module Plugins
     module Model
       module Resume
+        include Resource::Resume
+
         def parse_file(file)
           response = super(file)
           Structure::Resume::Parse.new(response)

@@ -1,7 +1,5 @@
 module Spear
   module Configuration
-    include Resources
-
     @@options = {}
 
     # use https or http
@@ -59,7 +57,13 @@ module Spear
     private
       def include_plugins
         Request.include Plugins::SaveApis if save_api?
-        Spear.extend Plugins::Models if use_model?
+
+        if use_model?
+          Spear.extend Plugins::Models
+        else
+          Spear.extend Resources
+        end
+
         # Spear.extend Dummy if use_dummy?
       end
 

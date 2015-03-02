@@ -1,10 +1,9 @@
-# encoding: utf-8
-
 module Spear
   module Resources
-    include Resource::User
-    include Resource::Resume
     include Resource::Application
     include Resource::Job
+    include Resource::Resume
+    include Resource::TalentNetwork
+    include Resource::User
   end
 end

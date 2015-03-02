@@ -2,6 +2,8 @@ module Spear
   module Plugins
     module Model
       module User
+        include Resource::User
+
         def check_existing(email, password='')
           response = super(email, password)
           Structure::User::CheckExisting.new(response)
