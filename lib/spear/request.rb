@@ -6,8 +6,6 @@ module Spear
     extend ActiveModel::Callbacks
     define_model_callbacks :execute, :only => [:before, :after]
 
-    attr_reader :resource
-
     # params: {:body => {}, :query => {}, :api_options => {}}
     #   exp: api_options: {:path => "/v1"}
     def execute(method, endpoint, params={})

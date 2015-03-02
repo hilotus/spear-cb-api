@@ -1,6 +1,6 @@
 # Spear Cb Api
 
-TODO: Write a gem description
+CB api tool.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+###See [Wiki](https://github.com/hilotus/spear-cb-api/wiki)
 
 ## Contributing
 

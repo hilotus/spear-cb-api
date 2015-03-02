@@ -1,6 +1,6 @@
 describe Spear do
   before :each do
-    Spear.config({dev_key: 'xxx', :project => 'ProjectName', :using_model => true})
+    Spear.config({dev_key: 'xxx', project: 'ProjectName', using_model: true})
   end
 
   it "check user existing" do
@@ -19,7 +19,7 @@ describe Spear do
   end
 
   it "retrieve job" do
-    s = Spear.retrieve_job('J3J4BP6MGVH2DJZ6MJH', 'IN')
+    s = Spear.retrieve_job('J3J4BP6MGVH2DJZ6MJH')
     puts s.job_description
   end
 

@@ -7,8 +7,8 @@ module Spear
           Structure::Job::Search.new(response)
         end
 
-        def retrieve_job(job_id, host_site)
-          response = super(job_id, host_site)
+        def retrieve_job(job_id)
+          response = super(job_id)
           Structure::Job::Retrieve.new(response)
         end
       end

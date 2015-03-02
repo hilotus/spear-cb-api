@@ -4,10 +4,6 @@ module Spear
 
     @@options = {}
 
-    def test?
-      @@options[:use_test] || false
-    end
-
     # use https or http
     def ssh?
       @@options[:use_ssh] || true
@@ -23,6 +19,10 @@ module Spear
 
     def version
       @@options[:version] || "v2"
+    end
+
+    def test?
+      @@options[:use_test] || false
     end
 
     def dev_key
@@ -42,8 +42,12 @@ module Spear
       @@options[:project]
     end
 
-    def config(options)
-      @@options = options
+    # def use_dummy?
+    #   @@options[:using_dummy] || false
+    # end
+
+    def config(options={})
+      @@options = options.merge!({use_ssh: true, hostname: 'api.careerbuilder.com', port: 443, version: 'v2'})
 
       raise Spear::ParametersRequired.new('DeveloperKey') if dev_key.nil?
       raise Spear::ParametersNotValid.new('You must specify a project name, if you want save api info.') if save_api? and project.nil?
@@ -56,6 +60,7 @@ module Spear
       def include_plugins
         Request.include Plugins::SaveApis if save_api?
         Spear.extend Plugins::Models if use_model?
+        # Spear.extend Dummy if use_dummy?
       end
 
   end
