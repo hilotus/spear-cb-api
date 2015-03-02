@@ -43,10 +43,10 @@ module Spear
     end
 
     def config(options)
-      raise Spear::ParametersRequired.new('DeveloperKey') if options[:dev_key].nil?
-      raise Spear::ParametersRequired.new('ProjectName') if options[:project].nil?
-
       @@options = options
+
+      raise Spear::ParametersRequired.new('DeveloperKey') if dev_key.nil?
+      raise Spear::ParametersNotValid.new('You must specify a project name, if you want save api info.') if save_api? and project.nil?
 
       # add plugins to request
       include_plugins

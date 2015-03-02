@@ -10,10 +10,10 @@ module Spear
       # job_id:
       #   20 character long unique job ID.
       #   It's one of the elements received in every v1/jobsearch result item.
-      def retrieve_job(job_id, host_site)
-        raise Spear::ParametersRequired.new(%w{JobID HostSite}) if job_id.blank? or host_site.blank?
+      def retrieve_job(job_id)
+        raise Spear::ParametersRequired.new('JobID') if job_id.blank?
 
-        Spear::Request.new.execute(:get, "/job", {:query => {:DID => job_id, :HostSite => host_site}})
+        Spear::Request.new.execute(:get, "/job", {:query => {:DID => job_id}})
       end
     end
   end

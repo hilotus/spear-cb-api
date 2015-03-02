@@ -10,7 +10,9 @@ module Spear
         def initialize(response)
           super(response)
           @tn_did = response.request.options[:query][:TalentNetworkDID]
-          @jobs = generate_jobs(@root['Results']['JobSearchResult'], @tn_did)
+
+          job_search_result = @root['Results'].nil? ? [] : @root['Results']['JobSearchResult']
+          @jobs = generate_jobs(job_search_result, @tn_did)
         end
       end
     end
