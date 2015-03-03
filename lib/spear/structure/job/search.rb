@@ -9,7 +9,10 @@ module Spear
 
         def initialize(response)
           super(response)
-          @tn_did = response.request.options[:query][:TalentNetworkDID]
+
+          if response.kind_of?(HTTParty::Response)
+            @tn_did = response.request.options[:query][:TalentNetworkDID]
+          end
 
           job_search_result = @root['Results'].nil? ? [] : @root['Results']['JobSearchResult']
           @jobs = generate_jobs(job_search_result, @tn_did)

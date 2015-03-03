@@ -1,4 +1,3 @@
-# TODO: Extract Languages and EmployerOrgs ...
 module Spear
   module Structure
     module Job

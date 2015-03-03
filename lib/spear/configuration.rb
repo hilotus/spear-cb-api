@@ -4,7 +4,7 @@ module Spear
 
     # use https or http
     def ssh?
-      @@options[:use_ssh] || true
+      @@options[:use_ssh].nil? ? true : @@options[:use_ssh]
     end
 
     def hostname
@@ -20,7 +20,7 @@ module Spear
     end
 
     def test?
-      @@options[:use_test] || false
+      @@options[:use_test].nil? ? false : @@options[:use_test]
     end
 
     def dev_key
@@ -29,11 +29,11 @@ module Spear
 
     # need save api info
     def save_api?
-      @@options[:saving_api] || false
+      @@options[:saving_api].nil? ? false : @@options[:saving_api]
     end
 
     def use_model?
-      @@options[:using_model] || false
+      @@options[:using_model].nil? ? false : @@options[:using_model]
     end
 
     def project

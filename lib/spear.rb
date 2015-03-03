@@ -36,6 +36,8 @@ module Spear
     end
 
     module Application
+      autoload :Create, 'spear/structure/application/create'
+      autoload :History, 'spear/structure/application/history'
     end
 
     module Job
@@ -45,6 +47,9 @@ module Spear
     end
 
     module TalentNetwork
+      autoload :EmbededClass, 'spear/structure/talent_network/embeded_class'
+      autoload :CreateMember, 'spear/structure/talent_network/create_member'
+      autoload :JoinFormQuestion, 'spear/structure/talent_network/join_form_question'
     end
   end
 

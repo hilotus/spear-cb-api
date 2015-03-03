@@ -9,7 +9,11 @@ module Spear
 
         @response = response
         # get the root keyvalue of the hash
-        @root = response.to_h.first.last
+        if response.to_h.has_key?('Errors')
+          @root = response.to_h
+        else
+          @root = response.to_h.first.last
+        end
         @status = @root["Status"]
         @error_message = get_error_message(@root)
       end
