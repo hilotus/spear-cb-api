@@ -1,6 +1,6 @@
 describe Spear do
   before :each do
-    Spear.config({dev_key: 'xxx', project: 'ProjectName', using_model: true})
+    Spear.config({dev_key: 'xxx', project: 'ProjectName', use_model: true})
   end
 
   it "check user existing" do
@@ -9,7 +9,7 @@ describe Spear do
   end
 
   it "application history" do
-    s = Spear.history('XRHR3NV6S8SK6DJ0GKSD')
+    s = Spear.history('J3H0YY6LLK553R3Z32Z')
     puts s.response
   end
 
@@ -19,7 +19,7 @@ describe Spear do
   end
 
   it "retrieve job" do
-    s = Spear.retrieve_job('J3J4BP6MGVH2DJZ6MJH')
+    s = Spear.retrieve_job('J3H0YY6LLK553R3Z32Z')
     puts s.response
   end
 
@@ -45,6 +45,25 @@ describe Spear do
         {Key: 'JQ7I3CM6P9B09VCVD9YF', Value: 'AVAILABLENOW'}
       ]
     })
+    puts s.response
+  end
+
+  it "get application status" do
+    s = Spear.application_status(['JAWS4L16LFXD7ZL87LLC', 'JAWW63876DWNQGSWZ384', 'JA4M44C77CDSR0QHTRJ6'])
+    puts s.response
+  end
+
+  it "get application blank" do
+    s = Spear.application_blank('J3H0YY6LLK553R3Z32Z')
+    puts s.response
+  end
+
+  it "application submit" do
+    s = Spear.application_submit('J3H0YY6LLK553R3Z32Z', [
+      {QuestionID: 'ApplicantName', ResponseText: 'Zhangfei'},
+      {QuestionID: 'ApplicantEmail', ResponseText: 'zhangfei@sina.com.cn'},
+      {QuestionID: 'Resume', ResponseText: 'test resume'}
+    ])
     puts s.response
   end
 end

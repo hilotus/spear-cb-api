@@ -8,14 +8,21 @@ module Spear
         raise Spear::ParametersRequired.new('Response') if response.nil?
 
         @response = response
-        # get the root keyvalue of the hash
-        if response.to_h.has_key?('Errors')
-          @root = response.to_h
-        else
-          @root = response.to_h.first.last
+
+        # Application Form Api return html string.
+
+        if response.kind_of?(Hash)
+          # get the root keyvalue of the hash
+          if response.to_h.has_key?('Errors')
+            @root = response.to_h
+          else
+            @root = response.to_h.first.last
+          end
+
+          # Application status is different
+          @status = @root["Status"] || @root['ApplicationStatus']
+          @error_message = get_error_message(@root)
         end
-        @status = @root["Status"]
-        @error_message = get_error_message(@root)
       end
 
       def success?

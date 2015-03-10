@@ -8,7 +8,7 @@ module Spear
         def initialize(response)
           super(response)
 
-          if response.kind_of?(HTTParty::Response)
+          if response.class == HTTParty::Response
             @job_id = response.request.options[:query][:DID]
           end
 

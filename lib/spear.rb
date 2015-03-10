@@ -38,6 +38,9 @@ module Spear
     module Application
       autoload :Create, 'spear/structure/application/create'
       autoload :History, 'spear/structure/application/history'
+      autoload :State, 'spear/structure/application/state'
+      autoload :Blank, 'spear/structure/application/blank'
+      autoload :Submit, 'spear/structure/application/submit'
     end
 
     module Job

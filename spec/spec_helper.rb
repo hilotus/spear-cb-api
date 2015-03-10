@@ -3,6 +3,8 @@ Bundler.setup
 
 require 'spear' # and any other gems you need
 
+require 'pry' # for debuge
+
 RSpec.configure do |config|
   # config.include Capybara::DSL,:type=>:request
   # The settings below are suggested to provide a good initial experience

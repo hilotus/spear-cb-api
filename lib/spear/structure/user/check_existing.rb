@@ -4,9 +4,9 @@ module Spear
       class CheckExisting < Structure::Base
         attr_reader :external_id, :oauth_token, :check_status
 
-        # http://api.careerbuilder.com/UserInfo.aspx
         def initialize(response)
           super(response)
+
           @external_id = @root["ResponseExternalID"]
           @oauth_token = @root["ResponseOAuthToken"]
           @check_status = @root['UserCheckStatus']

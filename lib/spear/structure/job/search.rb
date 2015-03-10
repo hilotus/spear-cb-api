@@ -10,7 +10,7 @@ module Spear
         def initialize(response)
           super(response)
 
-          if response.kind_of?(HTTParty::Response)
+          if response.class == HTTParty::Response
             @tn_did = response.request.options[:query][:TalentNetworkDID]
           end
 

@@ -4,13 +4,13 @@ module Spear
       def join_form_questions(talent_network_did)
         raise Spear::ParametersRequired.new('TalentNetworkDID') if talent_network_did.blank?
 
-        Spear::Request.new(:get, '',
-          {api_options: {path: "/talentnetwork/config/join/questions/#{talent_network_did}/json"}}).execute
+        Spear::Request.new(:get, Spear.uri_tn_join_form_question % [talent_network_did, 'json'], {
+          api_options: {need_test_element: true}}).execute
       end
 
       def create_member(data={})
-        Spear::Request.new(:post, '', {api_options:
-          {path: "/talentnetwork/member/create/json", :need_test_key => false}, body: data}).execute
+        Spear::Request.new(:post, Spear.uri_tn_menber_create % ['json'], {
+          api_options: {need_test_element: true}, body: data}).execute
       end
     end
   end
