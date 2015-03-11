@@ -5,12 +5,12 @@ module Spear
         raise Spear::ParametersRequired.new('TalentNetworkDID') if talent_network_did.blank?
 
         Spear::Request.new(:get, Spear.uri_tn_join_form_question % [talent_network_did, 'json'], {
-          api_options: {need_test_element: true}}).execute
+          api_options: {need_test_element: false}}).execute
       end
 
       def create_member(data={})
         Spear::Request.new(:post, Spear.uri_tn_menber_create % ['json'], {
-          api_options: {need_test_element: true}, body: data}).execute
+          api_options: {need_test_element: false}, body: data}).execute
       end
     end
   end
