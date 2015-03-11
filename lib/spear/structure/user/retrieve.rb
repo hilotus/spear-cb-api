@@ -5,9 +5,9 @@ module Spear
         attr_reader :external_id
         attr_accessor :email, :first_name, :last_name, :phone
 
-        # http://api.careerbuilder.com/UserInfo.aspx
         def initialize(response)
           super(response)
+
           @user_info = @root['UserInfo']
           @external_id = @root['Request']['ExternalID']
           @email = @user_info['Email']

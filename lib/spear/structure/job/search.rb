@@ -15,7 +15,7 @@ module Spear
           end
 
           job_search_result = @root['Results'].nil? ? [] : @root['Results']['JobSearchResult']
-          @jobs = generate_jobs(job_search_result, @tn_did)
+          @jobs = generate_jobs(job_search_result, @tn_did) rescue nil
         end
       end
     end

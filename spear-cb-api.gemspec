@@ -18,13 +18,13 @@ Gem::Specification.new do |spec|
   spec.add_dependency "builder", "~> 3.2"
   spec.add_dependency "activesupport", "~> 4.2"
   spec.add_dependency "activemodel", "~> 4.2"
-  spec.add_dependency "sucker_punch", "~> 1.0"
+  spec.add_dependency "sucker_punch", "~> 1.4"
   spec.add_dependency "httparty", "~> 0.13"
 
   spec.add_development_dependency "rspec", "~> 3.2"
-  spec.add_development_dependency "pry", "~> 0.10.1"
-  spec.add_development_dependency "pry-stack_explorer", "~> 0.4.9.2"
-  spec.add_development_dependency "pry-byebug", "~> 3.0.1"
+  spec.add_development_dependency "pry", "~> 0.10"
+  spec.add_development_dependency "pry-stack_explorer", "~> 0.4"
+  spec.add_development_dependency "pry-byebug", "~> 3.0"
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake", "~> 10.4"

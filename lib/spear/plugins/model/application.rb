@@ -15,8 +15,8 @@ module Spear
           Structure::Application::Create.new(response)
         end
 
-        def application_status(app_dids=[])
-          response = super(app_dids)
+        def application_status(ids, email=nil)
+          response = super(ids, email)
           Structure::Application::State.new(response)
         end
 

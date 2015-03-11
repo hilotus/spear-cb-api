@@ -6,7 +6,7 @@ module Spear
 
         def initialize(response)
           super(response)
-          @resumes = extract_resume(@root['Resumes'])
+          @resumes = extract_resume(@root['Resumes']) rescue nil
         end
 
         private

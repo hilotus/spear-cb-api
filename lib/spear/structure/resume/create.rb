@@ -7,6 +7,7 @@ module Spear
 
         def initialize(response)
           super(response)
+
           @external_id = @root['ResponseExternalID']
           @user_external_id = @root['Request']['ExternalUserID']
           @title = @root['Request']['Title']

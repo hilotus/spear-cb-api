@@ -36,6 +36,7 @@ module Spear
     end
 
     module Application
+      autoload :EmbededClass, 'spear/structure/application/embeded_class'
       autoload :Create, 'spear/structure/application/create'
       autoload :History, 'spear/structure/application/history'
       autoload :State, 'spear/structure/application/state'

@@ -9,7 +9,7 @@ module Spear
 
         @response = response
 
-        # Application Form Api return html string.
+        # Note: <b>Application Form API</b> return html string.
 
         if response.kind_of?(Hash)
           # get the root keyvalue of the hash
@@ -19,14 +19,14 @@ module Spear
             @root = response.to_h.first.last
           end
 
-          # Application status is different
+          # Note: <b>Application Status API</b> is different.
           @status = @root["Status"] || @root['ApplicationStatus']
           @error_message = get_error_message(@root)
         end
       end
 
       def success?
-        @status.nil? ? @error_message.nil? : @status.include?('Success')
+        @status.nil? ? @error_message.nil? : (@status.include?('Success') or @status.include?('Complete'))
       end
 
       private
@@ -47,6 +47,8 @@ module Spear
             end
           elsif hash["Errors"].kind_of?(Array)
             return hash["Errors"].first
+          elsif hash["Errors"].kind_of?(String)
+            return hash["Errors"]
           end
         end
     end

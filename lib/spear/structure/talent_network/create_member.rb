@@ -6,6 +6,7 @@ module Spear
 
         def initialize(response)
           super(response)
+
           @member_did = @root['MemberDID']
         end
 

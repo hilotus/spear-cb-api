@@ -12,13 +12,14 @@ module Spear
 
         def initialize(response)
           super(response)
+
           @resume = @root['Resume'] || {}
           @hrxml_resume = @resume['HRXMLResume']
 
           @resume_text = @resume['ResumeText'] || ''
-          @total_years_experience = (@resume['TotalYearsExperience'].to_i rescue 0)
-          @educations = generate_educations(@resume['Educations'])
-          @company_experiences = generate_experiences(@resume['CompanyExperiences'])
+          @total_years_experience = @resume['TotalYearsExperience'].to_i rescue 0
+          @educations = generate_educations(@resume['Educations']) rescue nil
+          @company_experiences = generate_experiences(@resume['CompanyExperiences']) rescue nil
         end
 
         def hash_for_create(external_user_id, host_site)

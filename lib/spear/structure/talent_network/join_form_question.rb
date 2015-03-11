@@ -8,7 +8,8 @@ module Spear
 
         def initialize(response)
           super(response)
-          @join_questions = generate_questions(@root["JoinQuestions"])
+
+          @join_questions = generate_questions(@root["JoinQuestions"]) rescue nil
         end
 
       end

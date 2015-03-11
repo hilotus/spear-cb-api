@@ -20,9 +20,15 @@ module Spear
           header: {:HostSite => host_site}, body: data}).execute
       end
 
-      def application_status(app_dids=[])
-        Spear::Request.new(:get, Spear.uri_application_status, {
-          query: {sApplDID: app_dids.join(',')}}).execute
+      # ids: application_did array, or job_did
+      def application_status(ids, email=nil)
+        if ids.kind_of?(String) and !email.blank?
+          Spear::Request.new(:get, Spear.uri_application_status, {query: {JobDID: ids, Email: email}}).execute
+        elsif ids.kind_of?(Array)
+          Spear::Request.new(:get, Spear.uri_application_status, {query: {AppDID: ids.join(',')}}).execute
+        else
+          raise Spear::ParametersNotValid.new('')
+        end
       end
 
       def application_blank(job_did)

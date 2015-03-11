@@ -11,9 +11,9 @@ module Spear
 
           @resume = @root['Resume']
           @title = @resume['Title']
-          @total_years_experience = (@resume['TotalYearsExperience'].to_i rescue 0)
-          @educations = generate_educations(@resume['Educations'])
-          @company_experiences = generate_experiences(@resume['CompanyExperiences'])
+          @total_years_experience = @resume['TotalYearsExperience'].to_i rescue 0
+          @educations = generate_educations(@resume['Educations']) rescue nil
+          @company_experiences = generate_experiences(@resume['CompanyExperiences']) rescue nil
         end
       end
     end
