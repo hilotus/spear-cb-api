@@ -1,6 +1,6 @@
 describe Spear do
   before :each do
-    Spear.config({dev_key: 'xxx', project: 'ExampleApp', use_model: true})
+    Spear.config({dev_key: ENV['DEVELOPMENT_KEY'], project: 'ExampleApp', use_model: true})
   end
 
   it "check user existing" do
@@ -50,7 +50,7 @@ describe Spear do
 
   it "get application status" do
     # s = Spear.application_status(['JAWS4L16LFXD7ZL87LLC', 'JAWW63876DWNQGSWZ384', 'JA4M44C77CDSR0QHTRJ6'])
-    s = Spear.application_status('JAWW63876DWNQGSWZ384', 'fei.zhang@sina.com.cn')
+    s = Spear.application_status('J3H0YY6LLK553R3Z32Z', 'zhangfei@sina.com.cn')
     puts s.response
   end
 

@@ -54,6 +54,8 @@ module Spear
           end
         rescue SocketError => e  # if the network is disconnected, it'll throw SocketError.
           raise Spear::NetworkError.new(e.message)
+        rescue Timeout::Error => e
+          raise Spear::TimeoutError.new(e.message)
         end
       end
 

@@ -2,13 +2,17 @@ module Spear
   module Structure
     module Application
       class State < Structure::Base
-        attr_accessor :application_list
+        include EmbededClass
+
+        attr_accessor :applications
 
         def initialize(response)
           super(response)
-          @application_list = @root['ApplicationList']
+
+          @applications = generate_apps(@root['ApplicationList']['Application']) rescue nil
         end
       end
+
     end
   end
 end

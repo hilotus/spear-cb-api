@@ -27,7 +27,7 @@ module Spear
         elsif ids.kind_of?(Array)
           Spear::Request.new(:get, Spear.uri_application_status, {query: {AppDID: ids.join(',')}}).execute
         else
-          raise Spear::ParametersNotValid.new('')
+          raise Spear::ParametersNotValid.new
         end
       end
 

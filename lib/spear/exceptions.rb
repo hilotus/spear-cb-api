@@ -15,7 +15,15 @@ module Spear
     end
   end
 
-  class ParametersNotValid < Error; end
+  class ParametersNotValid < Error;
+    DEFAULT = 'The parameters is invalid.'
+
+    def initialize(message)
+      super(message || DEFAULT)
+    end
+  end
+
   class NetworkError < Error; end
+  class TimeoutError < Error; end
   class ObjectTypeError < Error; end
 end
