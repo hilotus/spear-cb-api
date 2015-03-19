@@ -14,6 +14,7 @@ module Spear
   autoload :ParametersRequired, 'spear/exceptions'
   autoload :ParametersNotValid, 'spear/exceptions'
   autoload :NetworkError, 'spear/exceptions'
+  autoload :TimeoutError, 'spear/exceptions'
   autoload :ObjectTypeError, 'spear/exceptions'
 
   module Structure
