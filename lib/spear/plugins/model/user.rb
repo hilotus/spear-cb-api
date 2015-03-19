@@ -19,6 +19,11 @@ module Spear
           Structure::User::Retrieve.new(response)
         end
 
+        def token_authenticate(user_external_id)
+          response = super(user_external_id)
+          Structure::User::TokenAuthenticate.new(response)
+        end
+
       end
     end
   end

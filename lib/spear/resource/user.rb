@@ -18,6 +18,13 @@ module Spear
         Spear::Request.new(:post, Spear.uri_user_retrieve, {
           body: {:ExternalID => user_external_id, :Password => password}}).execute
       end
+
+      def token_authenticate(user_external_id)
+        raise Spear::ParametersRequired.new('UserExternalID') if user_external_id.blank?
+
+        Spear::Request.new(:post, Spear.uri_user_token_authenticate, {
+          body: {:ExternalID => user_external_id, :DestinationUrl => '/jobseeker/MyCB.aspx'}}).execute
+      end
     end
   end
 end

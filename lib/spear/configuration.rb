@@ -49,7 +49,8 @@ module Spear
           uri_tn_menber_create: '/talentnetwork/member/create/%s',
           uri_user_checkexisting: '/v2/user/checkexisting',
           uri_user_create: '/v2/user/create',
-          uri_user_retrieve: '/v2/user/retrieve'
+          uri_user_retrieve: '/v2/user/retrieve',
+          uri_user_token_authenticate: '/v2/user/token'
         }
 
         @@options = defaults.merge(options)

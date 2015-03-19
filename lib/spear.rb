@@ -23,6 +23,7 @@ module Spear
       autoload :CheckExisting, 'spear/structure/user/check_existing'
       autoload :Create, 'spear/structure/user/create'
       autoload :Retrieve, 'spear/structure/user/retrieve'
+      autoload :TokenAuthenticate, 'spear/structure/user/token_authenticate'
     end
 
     module Resume

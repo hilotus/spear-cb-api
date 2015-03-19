@@ -4,37 +4,37 @@ describe Spear do
   end
 
   it "check user existing" do
-    s = Spear.check_existing('zhangfei@163.com.cn', '111111111')
-    puts s.response
+    res = Spear.check_existing('zhangfei@163.com.cn', 'Qwer1234!')
+    puts res.response
   end
 
   it "application history" do
-    s = Spear.history('J3H0YY6LLK553R3Z32Z')
-    puts s.response
+    res = Spear.history('J3H0YY6LLK553R3Z32Z')
+    puts res.response
   end
 
   it 'search job' do
-    s = Spear.search_job({:TalentNetworkDID => 'TN818G76D6YWYNBXHB3Z', :SiteEntity => 'TalentNetworkJob', :CountryCode => 'IN'})
-    puts s.response
+    res = Spear.search_job({:TalentNetworkDID => 'TN818G76D6YWYNBXHB3Z', :SiteEntity => 'TalentNetworkJob', :CountryCode => 'IN'})
+    puts res.response
   end
 
   it "retrieve job" do
-    s = Spear.retrieve_job('J3H0YY6LLK553R3Z32Z')
-    puts s.response
+    res = Spear.retrieve_job('J3H0YY6LLK553R3Z32Z')
+    puts res.response
   end
 
   it "create application" do
-    s = Spear.create_application('IN', {JobDID: 'xxx', Resume: {ResumeTitle: 'title'}, Responses: [{QuestionID: 'id', ResponseText: 'text'}]})
-    puts s.response
+    res = Spear.create_application('IN', {JobDID: 'xxx', Resume: {ResumeTitle: 'title'}, Responses: [{QuestionID: 'id', ResponseText: 'text'}]})
+    puts res.response
   end
 
   it "tn join form question" do
-    s = Spear.join_form_questions('TN818G76D6YWYNBXHB3Z')
-    puts s.response
+    res = Spear.join_form_questions('TN818G76D6YWYNBXHB3Z')
+    puts res.response
   end
 
   it "tn create member" do
-    s = Spear.create_member({
+    res = Spear.create_member({
       TalentNetworkDID: 'TN818G76D6YWYNBXHB3Z',
       PreferredLanguage: 'USEnglish',
       AcceptPrivacy: false,
@@ -45,26 +45,31 @@ describe Spear do
         {Key: 'JQ7I3CM6P9B09VCVD9YF', Value: 'AVAILABLENOW'}
       ]
     })
-    puts s.response
+    puts res.response
   end
 
   it "get application status" do
-    # s = Spear.application_status(['JAWS4L16LFXD7ZL87LLC', 'JAWW63876DWNQGSWZ384', 'JA4M44C77CDSR0QHTRJ6'])
-    s = Spear.application_status('J3H0YY6LLK553R3Z32Z', 'zhangfei@sina.com.cn')
-    puts s.response
+    # res = Spear.application_status(['JAWS4L16LFXD7ZL87LLC', 'JAWW63876DWNQGSWZ384', 'JA4M44C77CDSR0QHTRJ6'])
+    res = Spear.application_status('J3H0YY6LLK553R3Z32Z', 'zhangfei@sina.com.cn')
+    puts res.response
   end
 
   it "get application blank" do
-    s = Spear.application_blank('J3H0YY6LLK553R3Z32Z')
-    puts s.response
+    res = Spear.application_blank('J3H0YY6LLK553R3Z32Z')
+    puts res.response
   end
 
   it "application submit" do
-    s = Spear.application_submit('J3H0YY6LLK553R3Z32Z', [
+    res = Spear.application_submit('J3H0YY6LLK553R3Z32Z', [
       {QuestionID: 'ApplicantName', ResponseText: 'Zhangfei'},
       {QuestionID: 'ApplicantEmail', ResponseText: 'zhangfei@sina.com.cn'},
       {QuestionID: 'Resume', ResponseText: 'test resume'}
     ])
-    puts s.response
+    puts res.response
+  end
+
+  it "token authenicate" do
+    res = Spear.token_authenticate('XRHT30S64S90Y384P9C7')
+    puts res.response
   end
 end
