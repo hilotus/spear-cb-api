@@ -4,7 +4,7 @@ describe Spear do
   end
 
   it "check user existing" do
-    res = Spear.check_existing('zhangfei@163.com.cn', 'Qwer1234!')
+    res = Spear.check_existing('zhangfei@163.com.cn', 'Qwer12341!')
     puts res.response
   end
 

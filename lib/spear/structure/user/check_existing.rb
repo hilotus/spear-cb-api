@@ -11,6 +11,10 @@ module Spear
           @oauth_token = @root["ResponseOAuthToken"]
           @check_status = @root['UserCheckStatus']
         end
+
+        def success?
+          super and @check_status.eql?('EmailExistsPasswordsMatch')
+        end
       end
     end
   end
