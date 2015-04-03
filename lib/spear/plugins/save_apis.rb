@@ -6,7 +6,7 @@ module Spear
       extend ActiveSupport::Concern
 
       included do
-        class_attribute :api_response, :api_started_at, :api_async_job
+        class_attribute :api_response, :api_started_at
 
         before_execute :record_started_time
         after_execute :save_infos
@@ -17,8 +17,6 @@ module Spear
       end
 
       def save_infos
-        self.api_async_job ||= AsyncSaveApi.new
-
         params = {
           project: Spear.project,
           request: nil,
@@ -39,25 +37,20 @@ module Spear
           params[:request][:FileBytes] = '...'
         end
 
-        self.api_async_job.async.perform(params)
+        AsyncSaveApi.new.async.perform(params)
       end
 
       class AsyncSaveApi
+        include HTTParty
         include SuckerPunch::Job
         workers 4
 
         def perform(options={})
-          HTTParty.post(
-            %q{http://ciws.hilotus.com/api/v1/api-info},
-            body: {
-              project:  options[:project],
-              url:      options[:url],
-              method:   options[:method],
-              request:  options[:request],
-              response: options[:response],
-              duration: options[:duration] }.to_json,
+          self.class.post(
+            'http://eventlogs.cb-apac.com/api/1/api-info',
+            body: options.to_json,
             options: {headers: {'Content-Type' => 'application/json'}}
-          ) rescue nil
+          )
         end
 
         # def later(sec, data)
