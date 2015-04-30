@@ -30,7 +30,7 @@ module Spear
         end
 
         def retrieve_resume(resume_external_id, user_external_id)
-          response = super(user_external_id, host_site)
+          response = super(resume_external_id, user_external_id)
           Structure::Resume::Retrieve.new(response)
         end
 

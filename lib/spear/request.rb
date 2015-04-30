@@ -62,7 +62,11 @@ module Spear
       # splice request body
       def splice_body
         @body[:DeveloperKey] = Spear.dev_key
-        @body[:Test] = Spear.use_test? if need_test_element?
+
+        if need_test_element?
+          @body[:Test] = @api_options[:test_element].nil? ? Spear.use_test? : @api_options[:test_element]
+        end
+
         to_xml(@body)
       end
 
@@ -75,7 +79,11 @@ module Spear
       # splice query(url params) {:query => {}} with DeveloperKey and Test
       def splice_query
         @query[:DeveloperKey] = Spear.dev_key
-        @query[:Test] = Spear.use_test? if need_test_element?
+
+        if need_test_element?
+          @query[:Test] = @api_options[:test_element].nil? ? Spear.use_test? : @api_options[:test_element]
+        end
+
         @query
       end
 

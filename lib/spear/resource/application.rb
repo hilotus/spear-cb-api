@@ -36,10 +36,11 @@ module Spear
         Spear::Request.new(:get, Spear.uri_application_blank, {query: {JobDID: job_did}}).execute
       end
 
-      def application_submit(job_did, questions=[])
+      def application_submit(job_did, questions=[], test=false)
         raise Spear::ParametersRequired.new('JobDID') if job_did.blank?
         Spear::Request.new(:post, Spear.uri_application_submit, {
-          api_options: {root_element: 'RequestApplication'}, body: {JobDID: job_did, Responses: questions}}).execute
+          api_options: {root_element: 'RequestApplication', test_element: test},
+          body: {JobDID: job_did, Responses: questions}}).execute
       end
     end
   end

@@ -64,7 +64,7 @@ describe Spear do
       {QuestionID: 'ApplicantName', ResponseText: 'Zhangfei'},
       {QuestionID: 'ApplicantEmail', ResponseText: 'zhangfei@sina.com.cn'},
       {QuestionID: 'Resume', ResponseText: 'test resume'}
-    ])
+    ], true)
     puts res.response
   end
 

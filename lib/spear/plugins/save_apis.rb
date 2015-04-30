@@ -29,9 +29,9 @@ module Spear
         params[:request] = self.api_response.request.options[:body] || self.api_response.request.options[:query]
         if params[:request].kind_of?(String)
             # parse file api
-            params[:request].gsub!(/<FileBytes>(.*?)<\/FileBytes>/m, '<FileBytes>...</FileBytes>')
+            params[:request].gsub!(/<FileBytes>(.|\n)*<\/FileBytes>/m, '<FileBytes>...</FileBytes>')
             # apply job api
-            params[:request].gsub!(/<ResumeData>(.*?)<\/ResumeData>/m, '<ResumeData>...</ResumeData>')
+            params[:request].gsub!(/<ResumeData>(.|\n)*<\/ResumeData>/m, '<ResumeData>...</ResumeData>')
         elsif params[:request].kind_of?(Hash)
           # upload file api
           params[:request][:FileBytes] = '...'

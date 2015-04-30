@@ -25,8 +25,8 @@ module Spear
           Structure::Application::Blank.new(response)
         end
 
-        def application_submit(job_did, questions=[])
-          response = super(job_did, questions)
+        def application_submit(job_did, questions=[], test=false)
+          response = super(job_did, questions, test)
           Structure::Application::Submit.new(response)
         end
       end
